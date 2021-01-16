@@ -1,0 +1,64 @@
+<form (ngSubmit)="submit()" [formGroup]="contactForm" novalidate>
+  <h2 mat-dialog-title>Contact Data</h2>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field>
+          <mat-label>Name*</mat-label>
+          <input formControlName="name" matInput>
+          <mat-error *ngIf="contactForm.get('name').hasError('required')" class="error-text">we need your name
+          </mat-error>
+          <mat-error *ngIf="contactForm.get('name').hasError('maxlength')" class="error-text">max 50 characters
+          </mat-error>
+          <mat-error *ngIf="contactForm.get('name').hasError('minlength')" class="error-text">min 2 characters
+          </mat-error>
+          <mat-error
+            *ngIf="contactForm.get('name').hasError('pattern') && !contactForm.get('name').hasError('minlength') && !contactForm.get('name').hasError('maxlength')"
+            class="error-text">the name has an invalid character</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field>
+          <mat-label>Phone*</mat-label>
+          <input formControlName="phone" maxlength="15" matInput>
+          <mat-error *ngIf="contactForm.get('phone').hasError('required')" class="error-text">we need your phone number
+          </mat-error>
+          <mat-error
+            *ngIf="contactForm.get('phone').value.length > 0 && contactForm.get('phone').hasError('maxlength') && !contactForm.get('phone').hasError('minlength') && !contactForm.get('phone').hasError('pattern')"
+            class="error-text">max 15 characters</mat-error>
+          <mat-error
+            *ngIf="contactForm.get('phone').value.length > 0 && contactForm.get('phone').hasError('minlength') && !contactForm.get('phone').hasError('maxlength')"
+            class="error-text">min 10 characters</mat-error>
+          <mat-error
+            *ngIf="contactForm.get('phone').value.length > 0 && contactForm.get('phone').hasError('pattern') && !contactForm.get('phone').hasError('maxlength') && !contactForm.get('phone').hasError('minlength')"
+            class="error-text">bad format</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <mat-form-field>
+          <mat-label>Email*</mat-label>
+          <input formControlName="email" matInput>
+          <mat-error *ngIf="contactForm.get('email').hasError('required')" class="error-text">we need your email address
+          </mat-error>
+          <mat-error *ngIf="contactForm.get('email').hasError('pattern')" class="error-text">please add a valid email
+            address</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input formControlName="address" matInput>
+          <mat-error *ngIf="contactForm.get('address').hasError('maxlength')" class="error-text">max 100 characters
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button class="btn btn-md btn-primary" [disabled]="contactForm.invalid">Save</button>
+  </mat-dialog-actions>
+</form>
